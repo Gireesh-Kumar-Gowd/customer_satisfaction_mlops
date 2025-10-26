@@ -56,3 +56,16 @@ class DataDivideStrategy(DataStrategy):
         except Exception as e:
             logging.error("Error in preprocessin data : {}".format(e))
             raise e
+
+
+class DataCleaning:
+
+
+    def __init__(self, data: pd.DataFrame, strategy: DataStrategy) -> None:
+        
+        self.df = data
+        self.strategy = strategy
+
+    def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
+        """Handle data based on the provided strategy"""
+        return self.strategy.handle_data(self.df)
