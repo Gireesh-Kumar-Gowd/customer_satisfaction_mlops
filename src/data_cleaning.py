@@ -38,7 +38,7 @@ class DataPreprocessStrategy(DataStrategy):
             
             return data
         except Exception as e:
-            logging.error(e)
+            logging.error("Error in preprocessing data : {}".format(e))
             raise e
 
 
@@ -54,7 +54,7 @@ class DataDivideStrategy(DataStrategy):
             )
             return X_train, y_train, X_test, y_test;
         except Exception as e:
-            logging.error("Error in preprocessin data : {}".format(e))
+            logging.error("Error in splitting data : {}".format(e))
             raise e
 
 
@@ -67,5 +67,8 @@ class DataCleaning:
         self.strategy = strategy
 
     def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
-        """Handle data based on the provided strategy"""
-        return self.strategy.handle_data(self.df)
+
+        try:
+            return self.strategy.handle_data(self.df)
+        except Exception as e:
+            logging.error("Error in handling data : {}".format(e))
